@@ -18,4 +18,11 @@ public class MoodAnalyserTest {
         result=moodAnalyser.analyseMood();
         Assert.assertEquals("HAPPY",result);
     }
+
+    @Test
+    public void givenNull_WhenNullPointerException_ThenHappy(){
+        moodAnalyser=new MoodAnalyser(null);
+        result=moodAnalyser.analyseMood();
+        Assert.assertEquals("HAPPY",result);
+    }
 }
