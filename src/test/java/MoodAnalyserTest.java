@@ -23,7 +23,7 @@ public class MoodAnalyserTest {
     public void givenNullMessageShouldThrowNullPointerException() {
         try {
             moodAnalyser=new MoodAnalyser(null);
-            result=moodAnalyser.analyseMood();
+            moodAnalyser.analyseMood();
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.TypeOfException.NULL_EXCEPTION,e.typeOfException);
         }
@@ -33,7 +33,7 @@ public class MoodAnalyserTest {
     public void givenMessageEmptyShouldThrowsEmptyException(){
         try {
             moodAnalyser=new MoodAnalyser("");
-            result=moodAnalyser.analyseMood();
+            moodAnalyser.analyseMood();
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.TypeOfException.EMPTY_EXCEPTION,e.typeOfException);
         }
