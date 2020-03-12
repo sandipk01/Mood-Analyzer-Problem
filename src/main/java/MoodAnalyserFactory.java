@@ -1,29 +1,30 @@
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-
 public class MoodAnalyserFactory {
 
-    //this method returns the Object od MoodAnalyser
-    public static MoodAnalyser createMoodAnalyser() throws MoodAnalysisException {
+    //method to return constructor
+    public static Constructor getConstructor(Class<?> ... param){
         try {
-            Class moodClass=Class.forName("MoodAnalyser");
-            Constructor constructor=moodClass.getConstructor();
-            Object moodObject=constructor.newInstance();
-            return  (MoodAnalyser) moodObject;
-        } catch (ClassNotFoundException e) {
-            throw new MoodAnalysisException(MoodAnalysisException.TypeOfException.NO_SUCH_CLASS,"No such class found");
-        } catch (IllegalAccessException | InstantiationException |InvocationTargetException e) {
+            Class<?> moodAnalyserClass=Class.forName("MoodAnalyser");
+            return moodAnalyserClass.getConstructor(param);
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
             e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            throw new MoodAnalysisException(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD,"No such method found");
         }
         return null;
     }
 
-    public static void main(String[] args) throws MoodAnalysisException {
-            MoodAnalyser moodAnalyser = new MoodAnalyser();
-            Object object = createMoodAnalyser();
-            System.out.println(object.equals(moodAnalyser));
+    //method to return object
+    public static Object createMoodAnalyser(Constructor<?> constructor,Object ... message){
+        try {
+            return constructor.newInstance(message);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
