@@ -1,8 +1,5 @@
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Objects;
 
 public class MoodAnalyserTest {
     private MoodAnalyser moodAnalyser;
@@ -67,6 +64,15 @@ public class MoodAnalyserTest {
             object=MoodAnalyserFactory.createMoodAnalyser();
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_CLASS,e.typeOfException);
+        }
+    }
+
+    @Test
+    public void givenConstructorPassWrongParameters_ThenShouldReturnNoSuchMethodException() {
+        try{
+            MoodAnalyserFactory.createMoodAnalyser();
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD,e.typeOfException);
         }
     }
 }
