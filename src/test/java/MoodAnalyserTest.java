@@ -1,13 +1,14 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
 
 public class MoodAnalyserTest {
     private MoodAnalyser moodAnalyser;
     private String result;
     private boolean resultBoolean;
+    private Constructor constructor;
     private Object object;
-
     @Test
     public void givenMessage_WhenAnalyse_ThenSadMood() throws MoodAnalysisException {
         moodAnalyser=new MoodAnalyser("I am in sad mood");
@@ -43,37 +44,12 @@ public class MoodAnalyserTest {
     }
 
     @Test
-    public void givenTwoObjects_WhenEquals_ThenShouldReturnTrue() throws MoodAnalysisException {
+    public void givenTwoObjects_WhenEquals_ThenShouldReturnTrue() {
         moodAnalyser=new MoodAnalyser();
-        object=MoodAnalyserFactory.createMoodAnalyser();
-        resultBoolean=object.equals(moodAnalyser);
+        constructor=MoodAnalyserFactory.getConstructor();
+        object=MoodAnalyserFactory.createMoodAnalyser(constructor);
+        resultBoolean=moodAnalyser.equals(object);
         Assert.assertTrue(resultBoolean);
     }
 
-    @Test
-    public void givenTwoObjects_WhenNotEquals_ThenShouldReturnFalse() throws MoodAnalysisException {
-        MoodAnalyserTest moodAnalyserTest=new MoodAnalyserTest();
-        object=MoodAnalyserFactory.createMoodAnalyser();
-        resultBoolean=object.equals(moodAnalyserTest);
-        Assert.assertFalse(resultBoolean);
-    }
-
-    @Test
-    public void givenWrongClass_ThenShouldGiveClassNotFoundException() {
-        moodAnalyser=new MoodAnalyser();
-        try {
-            object=MoodAnalyserFactory.createMoodAnalyser();
-        } catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_CLASS,e.typeOfException);
-        }
-    }
-
-    @Test
-    public void givenConstructorPassWrongParameters_ThenShouldReturnNoSuchMethodException() {
-        try{
-            MoodAnalyserFactory.createMoodAnalyser();
-        } catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD,e.typeOfException);
-        }
-    }
 }
