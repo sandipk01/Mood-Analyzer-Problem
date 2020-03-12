@@ -4,11 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 public class MoodAnalyserFactory {
 
     //method to return constructor
-    public static Constructor getConstructor(Class<?> ... param){
+    public static Constructor getConstructor(String className,Class<?> ... param) throws MoodAnalysisException {
         try {
-            Class<?> moodAnalyserClass=Class.forName("MoodAnalyser");
+            Class<?> moodAnalyserClass=Class.forName(className);
             return moodAnalyserClass.getConstructor(param);
-        } catch (ClassNotFoundException | NoSuchMethodException e) {
+        } catch (ClassNotFoundException e){
+            throw new MoodAnalysisException(MoodAnalysisException.TypeOfException.NO_SUCH_CLASS,"Class not found.");
+        } catch(NoSuchMethodException e) {
             e.printStackTrace();
         }
         return null;
