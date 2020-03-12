@@ -46,9 +46,18 @@ public class MoodAnalyserTest {
 
     @Test
     public void givenTwoObjects_WhenEquals_ThenShouldReturnTrue(){
-        MoodAnalyser moodAnalyser=new MoodAnalyser();
+        moodAnalyser=new MoodAnalyser();
         object=MoodAnalyserFactory.createMoodAnalyser();
         resultBoolean=object.equals(moodAnalyser);
         Assert.assertTrue(resultBoolean);
     }
+
+    @Test
+    public void givenTwoObjects_WhenNotEquals_ThenShouldReturnFalse(){
+        MoodAnalyserTest moodAnalyserTest=new MoodAnalyserTest();
+        object=MoodAnalyserFactory.createMoodAnalyser();
+        resultBoolean=object.equals(moodAnalyserTest);
+        Assert.assertFalse(resultBoolean);
+    }
+
 }
