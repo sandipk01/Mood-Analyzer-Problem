@@ -1,8 +1,6 @@
-import sun.tools.java.ClassNotFound;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.time.format.TextStyle;
+
 
 public class MoodAnalyserFactory {
 
@@ -10,7 +8,7 @@ public class MoodAnalyserFactory {
     public static MoodAnalyser createMoodAnalyser() throws MoodAnalysisException {
         try {
             Class moodClass=Class.forName("MoodAnalyser");
-            Constructor constructor=moodClass.getConstructor(TextStyle.class);
+            Constructor constructor=moodClass.getConstructor();
             Object moodObject=constructor.newInstance();
             return  (MoodAnalyser) moodObject;
         } catch (ClassNotFoundException e) {
