@@ -81,4 +81,15 @@ public class MoodAnalyserTest {
         resultBoolean=moodAnalyser.equals(object);
         Assert.assertTrue(resultBoolean);
     }
+
+    @Test
+    public void givenImproperClass_ThenShouldThrowNoClassFoundException() {
+        try {
+            constructor=MoodAnalyserFactory.getConstructor("MoodAnalyser",String.class);
+            object=MoodAnalyserFactory.createMoodAnalyser(constructor,"I am in sad mood");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_CLASS,e.typeOfException);
+        }
+
+    }
 }
