@@ -11,9 +11,8 @@ public class MoodAnalyserFactory {
         } catch (ClassNotFoundException e){
             throw new MoodAnalysisException(MoodAnalysisException.TypeOfException.NO_SUCH_CLASS,"Class not found.");
         } catch(NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new MoodAnalysisException(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD,"Method not found.");
         }
-        return null;
     }
 
     //method to return object
