@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.format.TextStyle;
 
 public class MoodAnalyserFactory {
+
     //this method returns the Object od MoodAnalyser
     public static MoodAnalyser createMoodAnalyser() throws MoodAnalysisException {
         try {
