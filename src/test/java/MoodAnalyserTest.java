@@ -4,11 +4,13 @@ import org.junit.Test;
 import java.lang.reflect.Constructor;
 
 public class MoodAnalyserTest {
+
     private MoodAnalyser moodAnalyser;
     private String result;
     private boolean resultBoolean;
     private Constructor constructor;
     private Object object;
+
     @Test
     public void givenMessage_WhenAnalyse_ThenSadMood() throws MoodAnalysisException {
         moodAnalyser=new MoodAnalyser("I am in sad mood");
@@ -44,12 +46,21 @@ public class MoodAnalyserTest {
     }
 
     @Test
-    public void givenTwoObjects_WhenEquals_ThenShouldReturnTrue() {
+    public void givenTwoObjects_WhenEquals_ThenShouldReturnTrue() throws MoodAnalysisException {
         moodAnalyser=new MoodAnalyser();
-        constructor=MoodAnalyserFactory.getConstructor();
+        constructor=MoodAnalyserFactory.getConstructor("MoodAnalyser");
         object=MoodAnalyserFactory.createMoodAnalyser(constructor);
         resultBoolean=moodAnalyser.equals(object);
         Assert.assertTrue(resultBoolean);
     }
 
+    @Test
+    public void givenImproperClass_ThenShouldThrowNoSuchClassException(){
+        moodAnalyser=new MoodAnalyser();
+        try {
+            constructor=MoodAnalyserFactory.getConstructor("MoodAnalyser");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_CLASS,e.typeOfException);
+        }
+    }
 }
