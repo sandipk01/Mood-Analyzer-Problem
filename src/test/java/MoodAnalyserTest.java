@@ -1,9 +1,14 @@
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Objects;
 
 public class MoodAnalyserTest {
     private MoodAnalyser moodAnalyser;
     private String result;
+    private boolean resultBoolean;
+    private Object object;
 
     @Test
     public void givenMessage_WhenAnalyse_ThenSadMood() throws MoodAnalysisException {
@@ -37,5 +42,13 @@ public class MoodAnalyserTest {
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.TypeOfException.EMPTY_EXCEPTION,e.typeOfException);
         }
+    }
+
+    @Test
+    public void givenTwoObjects_WhenEquals_ThenShouldReturnTrue(){
+        MoodAnalyser moodAnalyser=new MoodAnalyser();
+        object=MoodAnalyserFactory.createMoodAnalyser();
+        resultBoolean=object.equals(moodAnalyser);
+        Assert.assertTrue(resultBoolean);
     }
 }
