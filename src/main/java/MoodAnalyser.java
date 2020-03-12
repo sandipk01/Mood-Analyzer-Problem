@@ -1,21 +1,38 @@
 import com.sun.org.apache.xpath.internal.operations.Mod;
 
+import java.util.Objects;
+
 public class MoodAnalyser {
-    //variables
+    //Variables
     private String message;
 
-    //no arg constructor
+    //No arg constructor
     public MoodAnalyser(){ }
 
-    //constructor with parameter
+    //Constructor with parameter
     public MoodAnalyser(String message) {
         this.message=message;
     }
 
-    //method for accessing parameters
+    //Method for accessing parameters
     public String analyseMood(String message) throws MoodAnalysisException{
         this.message=message;
         return analyseMood();
+    }
+
+    //Overrides equals method to check objects are equal
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MoodAnalyser that = (MoodAnalyser) o;
+        return Objects.equals(message, that.message);
+    }
+
+    //Overrides hasCode method
+    @Override
+    public int hashCode() {
+        return Objects.hash(message);
     }
 
     //analyseMood return SAD or HAPPY
