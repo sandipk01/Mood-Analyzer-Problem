@@ -1,12 +1,6 @@
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 
 public class MoodAnalyserTest {
 
@@ -31,13 +25,10 @@ public class MoodAnalyserTest {
     }
 
     @Test
-    public void givenNullMessageShouldReturnHappy() {
-        try {
+    public void givenNullMessageShouldReturnHappy() throws MoodAnalysisException {
             moodAnalyser = new MoodAnalyser(null);
             result = moodAnalyser.analyseMood();
-        } catch (MoodAnalysisException e) {
             Assert.assertEquals("HAPPY", result);
-        }
     }
 
     @Test
@@ -151,6 +142,17 @@ public class MoodAnalyserTest {
             MoodAnalyserFactory.getField(object, "messe", "I am in Happy Mood");
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_FIELD,e.typeOfException);
+        }
+    }
+
+    @Test
+    public void givenNullField_ThenShouldThrowNoSuchFieldException() throws MoodAnalysisException {
+        constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser");
+        object = MoodAnalyserFactory.createMoodAnalyser(constructor);
+        try {
+            MoodAnalyserFactory.getField(object, "message", null);
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.TypeOfException.NULL_EXCEPTION,e.typeOfException);
         }
     }
 }
