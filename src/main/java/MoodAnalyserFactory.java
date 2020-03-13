@@ -18,8 +18,9 @@ public class MoodAnalyserFactory {
 
     //method to return object
     public static Object createMoodAnalyser(Constructor<?> constructor, Object... message) {
+        Object constructorObject=null;
         try {
-            return constructor.newInstance(message);
+            constructorObject=constructor.newInstance(message);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -27,12 +28,13 @@ public class MoodAnalyserFactory {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        return null;
+        return constructorObject;
     }
     //method to return method object
     public static Object createMethod(Object object,String methodName) throws MoodAnalysisException {
+        Method method=null;
         try {
-           Method method = object.getClass().getMethod(methodName);
+            method = object.getClass().getMethod(methodName);
             return method.invoke(object);
         } catch (NoSuchMethodException e) {
             throw new MoodAnalysisException(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD, "Method not found.");
@@ -41,6 +43,6 @@ public class MoodAnalyserFactory {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        return null;
+        return method;
     }
 }
