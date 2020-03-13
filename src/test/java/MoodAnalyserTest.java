@@ -1,8 +1,11 @@
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 
 public class MoodAnalyserTest {
@@ -130,5 +133,12 @@ public class MoodAnalyserTest {
         }
     }
 
-
+    @Test
+    public void givenHappyMessageDynamically_ThenShouldReturnHappy() throws MoodAnalysisException {
+        constructor=MoodAnalyserFactory.getConstructor("MoodAnalyser");
+        object= MoodAnalyserFactory.createMoodAnalyser(constructor);
+        MoodAnalyserFactory.getField(object,"message","I am in Happy Mood");
+        result=MoodAnalyserFactory.createMethod(object,"analyseMood");
+        Assert.assertEquals("HAPPY",result);
+    }
 }
