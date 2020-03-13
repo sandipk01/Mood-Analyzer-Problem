@@ -82,7 +82,7 @@ public class MoodAnalyserTest {
     @Test
     public void givenImproperConstructorParameter_ThenShouldThrowNoSuchMethodException() {
         try {
-            constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser",Integer.class);
+            constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD, e.typeOfException);
         }
@@ -100,7 +100,7 @@ public class MoodAnalyserTest {
     @Test
     public void givenImproperClass_ThenShouldThrowNoClassFoundException() {
         try {
-            constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser",String.class);
+            constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", String.class);
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_CLASS, e.typeOfException);
         }
@@ -109,36 +109,48 @@ public class MoodAnalyserTest {
     @Test
     public void givenImproperConstructorParameter_ThenShouldThrowsNoSuchMethodException() {
         try {
-            constructor=MoodAnalyserFactory.getConstructor("MoodAnalyser",Integer.class,String.class);
+            constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class, String.class);
         } catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD,e.typeOfException);
+            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD, e.typeOfException);
         }
     }
+
     @Test
-    public void givenMessageHappy_ThenShouldReturnHappy() throws MoodAnalysisException{
-        constructor=MoodAnalyserFactory.getConstructor("MoodAnalyser",String.class);
-        object=MoodAnalyserFactory.createMoodAnalyser(constructor,"I am in Happy Mood");
-        result=MoodAnalyserFactory.createMethod(object,"analyseMood");
-        Assert.assertEquals("HAPPY",result);
+    public void givenMessageHappy_ThenShouldReturnHappy() throws MoodAnalysisException {
+        constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", String.class);
+        object = MoodAnalyserFactory.createMoodAnalyser(constructor, "I am in Happy Mood");
+        result = MoodAnalyserFactory.createMethod(object, "analyseMood");
+        Assert.assertEquals("HAPPY", result);
     }
 
     @Test
     public void givenImproperMethodName_ThenShouldThrowNoSuchMethodException() throws MoodAnalysisException {
-        constructor=MoodAnalyserFactory.getConstructor("MoodAnalyser",String.class);
-        object=MoodAnalyserFactory.createMoodAnalyser(constructor,"I am in Happy Mood");
+        constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", String.class);
+        object = MoodAnalyserFactory.createMoodAnalyser(constructor, "I am in Happy Mood");
         try {
-            MoodAnalyserFactory.createMethod(object,"analyseM");
+            MoodAnalyserFactory.createMethod(object, "analyseM");
         } catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD,e.typeOfException);
+            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD, e.typeOfException);
         }
     }
 
     @Test
     public void givenHappyMessageDynamically_ThenShouldReturnHappy() throws MoodAnalysisException {
-        constructor=MoodAnalyserFactory.getConstructor("MoodAnalyser");
-        object= MoodAnalyserFactory.createMoodAnalyser(constructor);
-        MoodAnalyserFactory.getField(object,"message","I am in Happy Mood");
-        result=MoodAnalyserFactory.createMethod(object,"analyseMood");
-        Assert.assertEquals("HAPPY",result);
+        constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser");
+        object = MoodAnalyserFactory.createMoodAnalyser(constructor);
+        MoodAnalyserFactory.getField(object, "message", "I am in Happy Mood");
+        result = MoodAnalyserFactory.createMethod(object, "analyseMood");
+        Assert.assertEquals("HAPPY", result);
+    }
+
+    @Test
+    public void givenImproperField_ThenShouldThrowNoSuchFieldException() throws MoodAnalysisException {
+        constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser");
+        object = MoodAnalyserFactory.createMoodAnalyser(constructor);
+        try {
+            MoodAnalyserFactory.getField(object, "messe", "I am in Happy Mood");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_FIELD,e.typeOfException);
+        }
     }
 }
