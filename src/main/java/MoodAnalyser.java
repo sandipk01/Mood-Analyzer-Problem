@@ -36,15 +36,17 @@ public class MoodAnalyser {
 
     //analyseMood return SAD or HAPPY
     public String analyseMood() throws MoodAnalysisException {
+        String result="HAPPY";
         try {
             if (message.length() == 0)
                 throw new MoodAnalysisException(MoodAnalysisException.TypeOfException.EMPTY_EXCEPTION, "Please enter the message");
             if (message.contains("sad"))
-                return "SAD";
-            else
-                return "HAPPY";
+                result="SAD";
         } catch (NullPointerException e) {
             throw new MoodAnalysisException(MoodAnalysisException.TypeOfException.NULL_EXCEPTION, "message should not be null");
+        }
+        finally {
+            return result;
         }
     }
 }
