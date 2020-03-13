@@ -3,7 +3,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
 
 public class MoodAnalyserTest {
 
@@ -112,10 +112,21 @@ public class MoodAnalyserTest {
         }
     }
     @Test
-    public void givenMessageHappy_ThenShouldReturnHappy() throws MoodAnalysisException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void givenMessageHappy_ThenShouldReturnHappy() throws MoodAnalysisException{
         constructor=MoodAnalyserFactory.getConstructor("MoodAnalyser",String.class);
         object=MoodAnalyserFactory.createMoodAnalyser(constructor,"I am in Happy Mood");
         result=MoodAnalyserFactory.createMethod(object,"analyseMood");
         Assert.assertEquals("HAPPY",result);
+    }
+
+    @Test
+    public void givenImproperMethodName_ThenShouldThrowNoSuchMethodException() throws MoodAnalysisException {
+        constructor=MoodAnalyserFactory.getConstructor("MoodAnalyser",String.class);
+        object=MoodAnalyserFactory.createMoodAnalyser(constructor,"I am in Happy Mood");
+        try {
+            MoodAnalyserFactory.createMethod(object,"analyseM");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD,e.typeOfException);
+        }
     }
 }
