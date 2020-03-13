@@ -1,5 +1,6 @@
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class MoodAnalyserFactory {
 
@@ -20,6 +21,20 @@ public class MoodAnalyserFactory {
         try {
             return constructor.newInstance(message);
         } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    //method to return method object
+    public static Object createMethod(Object object,String methodName){
+        try {
+           Method method = object.getClass().getMethod(methodName);
+            return method.invoke(object);
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
