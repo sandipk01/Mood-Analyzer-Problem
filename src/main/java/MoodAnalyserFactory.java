@@ -30,12 +30,12 @@ public class MoodAnalyserFactory {
         return null;
     }
     //method to return method object
-    public static Object createMethod(Object object,String methodName){
+    public static Object createMethod(Object object,String methodName) throws MoodAnalysisException {
         try {
            Method method = object.getClass().getMethod(methodName);
             return method.invoke(object);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new MoodAnalysisException(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD, "Method not found.");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
