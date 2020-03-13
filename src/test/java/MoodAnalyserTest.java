@@ -129,4 +129,6 @@ public class MoodAnalyserTest {
             Assert.assertEquals(MoodAnalysisException.TypeOfException.NO_SUCH_METHOD,e.typeOfException);
         }
     }
+
+
 }
